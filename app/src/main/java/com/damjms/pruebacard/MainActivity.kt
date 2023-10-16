@@ -7,25 +7,25 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.damjms.pruebacard.ui.theme.PruebaCardTheme
 
 class MainActivity : ComponentActivity() {
@@ -34,14 +34,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             PruebaCardTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
+                Column() {
                     Greeting(
-                        titulo = "TARJETA",
-                        descripcion = "Aqui pongo un poco de texto para la card",
-                        imagen = R.drawable.logo
+                        painterResource(id = R.drawable.logo),
+                        "Hola mundo",
+                        "Hola mundo es un saludo"
+                    )
+                    Greeting(
+                        painterResource(id = R.drawable.logo),
+                        "Hola mundo",
+                        "Hola mundo es un saludo"
                     )
                 }
             }
@@ -50,53 +52,35 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(titulo: String, descripcion: String, imagen: Int) {
+fun Greeting(imagen: Painter, titulo: String, descripcion: String) {
     Card(
-        modifier = Modifier
-            .padding(16.dp)
-            .fillMaxWidth()
-            .background(Color.LightGray)
-            .clip(RoundedCornerShape(16.dp))
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        ),
+        modifier = Modifier.size(width = 430.dp, height = 200.dp)
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Row(
+        Row {
+            Image(painter = imagen,
+                contentDescription = null,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                // Image on the left side
-                Image(
-                    painter = painterResource(id = imagen),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(200.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.primary)
-                        .padding(8.dp),
-                    contentScale = ContentScale.Crop
-                )
+                    .size(200.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.primary)
+            )
 
-                Column(
+            Column {
+                Text(
+                    text = titulo,
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                        .padding(start = 16.dp)
-                        .fillMaxWidth()
-                ) {
-                    Text(
-                        text = titulo,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(bottom = 4.dp)
-                    )
-                    Text(
-                        text = descripcion,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier
-                            .padding(bottom = 4.dp)
-                    )
-                }
+                        .padding(16.dp)
+                )
+                Text(
+                    text = descripcion,
+                    modifier = Modifier
+                        .padding(16.dp)
+                )
             }
         }
     }
