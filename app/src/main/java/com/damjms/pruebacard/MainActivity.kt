@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(imagen: Painter, titulo: String, descripcion: String) {
+fun Greeting(image: Painter, titulo: String, descripcion: String) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
@@ -60,7 +60,7 @@ fun Greeting(imagen: Painter, titulo: String, descripcion: String) {
         modifier = Modifier.size(width = 430.dp, height = 200.dp)
     ) {
         Row {
-            Image(painter = imagen,
+            Image(painter = image,
                 contentDescription = null,
                 modifier = Modifier
                     .size(200.dp)
